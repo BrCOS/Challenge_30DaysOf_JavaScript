@@ -4,8 +4,8 @@
 
 Today is all about the basics, we'll be looking at:
 
-1.What Are Functions?
-2.Why Use Functions?
+1. What Are Functions?
+2. Why Use Functions?
 3. No Input, No Return
 4. Input, No Return
 5. Input, Return
