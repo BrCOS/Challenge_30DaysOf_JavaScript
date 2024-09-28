@@ -2,8 +2,6 @@
 
 ## Day 01 - Simple Types
 
-Today is all about the basics, we'll be looking at:
-
 1. Console
 2. Constants
 3. Variables
