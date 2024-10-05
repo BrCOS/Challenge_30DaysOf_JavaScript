@@ -1,6 +1,6 @@
 # Challenge_30DaysOf_JavaScript
 
-## Day 10 - Higher Order Functions Part 2
+## Day 11 - Higher Order Functions Part 2
 
 1. findIndex
 2. some
