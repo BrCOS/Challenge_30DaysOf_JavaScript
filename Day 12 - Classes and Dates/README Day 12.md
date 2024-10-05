@@ -1,6 +1,6 @@
 # Challenge_30DaysOf_JavaScript
 
-## Day 10 - Classes
+## Day 12 - Classes
 
 1. What Are Classes?
 2. Instance Variables
