@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <ul id='todos'></ul>
+</body>
+    <script>
+        // creating dom elements
+        
+        const todos = document.getElementById('todos');
+        const listItem = document.createElement('li');//creating an dom element
+        const content = document.createTextNode('Clean Kitchen');//adds a text
+
+        listItem.appendChild(content);//add the text to the list item we created
+
+        todos.appendChild(listItem);//add the list item to the list
+
+        // creating dom elements by an array
+        const todoList = ['Clean Kitchen', 'Walk Dog', 'Watch TV', 'Plan Next Project'];
+        
+        todoList.forEach((todoItem) => {
+            const listItem = document.createElement('li');
+            const content = document.createTextNode(todoItem);
+
+            listItem.appendChild(content);
+            todos.appendChild(listItem);
+        //here, we iterated over our array of elements, created an <li>, added the text from the array
+        //and appended it all to the <ul>, that we created in this HTML file above
+        });
+    </script>
+</html>

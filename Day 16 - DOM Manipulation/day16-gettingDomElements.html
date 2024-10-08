@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <p id='red-text'>Hello World</p>
+
+    <div id='container'>
+        <p id='red-text'>Hello World</p>
+    </div>
+
+    <div class='title-large' id='container'>
+        <p id='red-text'>Hello World</p>
+    </div>
+
+    <div class='title-large' id='container'>
+        <p class='title-small'>Hello Simon</p>
+        <p class='title-small'>Hello Raj</p>
+        <p class='title-small'>Hello Zuma</p>
+        <p class='title-small'>Hello Sara</p>
+    </div>
+
+</body>
+    <script>
+        //getting dom elements
+        //getElementById()
+
+        const text = document.getElementById('red-text');
+        console.log(text);//<p id='red-text'>Hello World</p>
+        //we used the id (red-text) to grab the HTML element and print it
+
+        console.log(text.innerHTML);//Hello World
+
+        const container = document.getElementById('container');
+        console.log(container);//<div id='container'>
+        console.log(container.innerHTML);//<p id='red-text'>Hello World</p>
+
+        //by getting an element also gets all the other elements inside it
+        //the first is an HTMLElement and the second is just a string of the HTML inside that HTMLElement
+
+        //all HTML tags have attributs on them, like id='container' or type='text' is an attribute
+        
+        //both ways to print an alement and its attributes
+        const attributes = container.attributes;
+        console.log(attributes);
+        //prints a full map
+        
+        console.log('loop for');
+        for (const attr of attributes) {
+            console.log(`${attr.name} -> ${attr.value}`);
+        }
+        //this one we are looping through the map of attributes and printing the name and value
+
+
+        //getElementsByClassName()
+        console.log('getElementsByClassName')
+        const titles = document.getElementsByClassName('title-small');
+        console.log(titles);
+        //it printed out an HTMLCollection, which is every element on the page that has the class title-small
+
+        //access a single one
+        console.log(titles[0]);//now we have an HTML element
+
+        //loop through them all
+        for (const title of titles) {
+            console.log(title.innerHTML);
+        }
+    </script>
+</html>

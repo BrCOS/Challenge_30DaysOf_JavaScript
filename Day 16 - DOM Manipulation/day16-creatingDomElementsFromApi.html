@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <ul id='pokemon'></ul>
+</body>
+    <script>
+        // creating dom elements freom an api
+        //let's fetch some data from the pokeApi
+
+        fetch('https://pokeapi.co/api/v2/pokemon/')//get the api data
+        .then((pokemonResponse) => pokemonResponse.json())//transforms in json
+        .then((pokemonData) => {
+            console.log(pokemonData);//prints the data in log
+
+            const pokemonArray = pokemonData.results;//pokemonData is a json object and has a key called results
+                                                    //and here we are accessing it and passing to the const
+
+            const pokemonList = document.getElementById('pokemon');//get the <ul> by its id
+            
+            pokemonArray.forEach((pokemon) => {//iterates through the array of pokemon's names we just got
+                const listItem = document.createElement('li');//create a li element for each iteration
+                const content = document.createTextNode(pokemon.name);//access the pokemon name and get its name
+                
+                listItem.appendChild(content);//append the pokemon name to the li element
+                pokemonList.appendChild(listItem);//append the li element with the name to the <ul> element
+            });
+        });
+    </script>
+</html>
