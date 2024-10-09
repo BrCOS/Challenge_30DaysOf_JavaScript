@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <div id='ball' style='
+        left: 30px;
+        top: 30px;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: red;'>
+    </div>
+</body>
+    <script>
+        // exercise
+        //add an event handler to the ball that when you press enter makes the ball grow by 10px in diameter
+        //and when you click it it shrinks by 10px
+        //make sure the ball is never larger than 200px and never smaller than 10px
+
+        const ball = document.getElementById('ball');
+        const movement = 5;
+        const size = 10;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                let left = parseInt(ball.style.left) + movement;
+                ball.style.left = `${left}px`;
+            }
+
+            if (e.key === 'ArrowLeft') {
+                let left = parseInt(ball.style.left) - movement;
+                ball.style.left = `${left}px`;
+            }
+
+            if (e.key === 'ArrowUp') {
+                let top = parseInt(ball.style.top) - movement;
+                ball.style.top = `${top}px`;
+            }
+
+            if (e.key === 'ArrowDown') {
+                let top = parseInt(ball.style.top) + movement;
+                ball.style.top = `${top}px`;
+            }
+
+            if (e.key === 'Enter') {
+                let enter = parseInt(ball.style.width) + size;
+
+                if (enter <= 200) {
+                    ball.style.width = `${enter}px`;
+                    ball.style.height = `${enter}px`;
+                    ball.style.borderRadius = `${enter / 2}px`;
+                }
+            }
+        });
+
+        ball.addEventListener('click', () => {
+            let click = parseInt(ball.style.width) - size;
+
+                if (click >= 10) {
+                    ball.style.width = `${click}px`;
+                    ball.style.height = `${click}px`;
+                    ball.style.borderRadius = `${click / 2}px`;
+                }
+        });
+    </script>
+</html>
