@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <button id='hi-button' onclick='sayHi()'>Say Hi!</button>
+
+    <div id='welcome-message'>Welcome</div>
+
+    <ul id='todos'></ul>
+</body>
+    <script>
+        // target vs current target
+        //is an event handler
+
+       const sayHi = () => {
+        console.log('Hi');
+       };
+
+       const todos = [
+            {description: 'Walk Dog', important: true},
+            {description: 'Watch TV', important: false},
+            {description: 'Bake Cake', important: false}
+        ];
+
+        const todosList = document.getElementById('todos');
+
+        todos.forEach((todoItem) => {
+            const listItem = document.createElement('li');
+            const content = document.createTextNode(todoItem.description);
+
+            const doneButton = document.createElement('button');
+            doneButton.innerHTML = 'Done';
+
+            doneButton.onclick = (event) => {
+                event.target.parentNode.remove();
+            }                                   
+                                                
+            if (todoItem.important) {
+                listItem.classList.add('warning');
+            }
+
+            listItem.onmouseover = (e) => {//the code will be printed as soon as we hover through the <li> element
+                console.log(e.target.innerHTML);//and will print it all that triggers the target, the parent or its childs
+            };//console.log(e.currentTarget.innerHTML); this will always refer to the element itself (in this case just the <li> and not its childs)
+
+            listItem.appendChild(content);
+            listItem.appendChild(doneButton);
+            todosList.appendChild(listItem);
+        });
+    </script>
+</html>

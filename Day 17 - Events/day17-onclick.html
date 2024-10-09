@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <button id='hi-button' onclick='sayHi()'>Say Hi!</button>
+
+    <div id='welcome-message'>Welcome</div>
+
+    <ul id='todos'></ul>
+</body>
+    <script>
+        // onclick
+        //the element on click executes the code we pass in
+        //is an event handler
+
+       const sayHi = () => {
+        console.log('Hi');
+       };
+
+       //we are not passing the sayHi to the to the onclick handler, but the line of code sayHi()
+       //which is a invocation of the sayHi function
+       //the code we put into "" is not a reference to a function that will be executed, but the code that will run
+
+       //this function is not necessary we could do just onclick="console.log('hi')"
+
+
+       // onclick event listener
+       //let's add a done button and have one item removed from the list
+
+       const todos = [
+            {description: 'Walk Dog', important: true},
+            {description: 'Watch TV', important: false},
+            {description: 'Bake Cake', important: false}
+        ];
+
+        const todosList = document.getElementById('todos');
+
+        todos.forEach((todoItem) => {
+            const listItem = document.createElement('li');
+            const content = document.createTextNode(todoItem.description);
+
+            const doneButton = document.createElement('button');
+            doneButton.innerHTML = 'Done';
+
+            doneButton.onclick = (event) => {//event is a parameter, a large object with a bunch of information
+                event.target.parentNode.remove();//.target property gives us a reference to which element caused this event to fire
+            }                                   //this just deletes the data from the DOM, but not the array, so when the page is
+                                                //refreshed everything is going to show up again
+            if (todoItem.important) {
+                listItem.classList.add('warning');
+            }
+
+            listItem.appendChild(content);
+            listItem.appendChild(doneButton);//adds the button to the list item
+            todosList.appendChild(listItem);
+        });
+    </script>
+</html>

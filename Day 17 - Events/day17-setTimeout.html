@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <button id='hi-button' onclick='sayHi()'>Say Hi!</button>
+
+    <div id='welcome-message'>Welcome</div>
+
+    <ul id='todos'></ul>
+</body>
+    <script>
+        // setTimeout
+        //let's us set dtuff up to happen in the future, looks like an event but it's not
+
+        const sayHi = () => {
+        console.log('Hi');
+        };
+
+        const todos = [
+            {description: 'Walk Dog', important: true, due: 'today'},
+            {description: 'Watch TV', important: false, due: 'today'},
+            {description: 'Bake Cake', important: false, due: 'tomorrow'}
+        ];
+
+        const todosList = document.getElementById('todos');
+
+        let currentTimeout;
+
+        todos.forEach((todoItem) => {
+            const listItem = document.createElement('li');
+            const content = document.createTextNode(todoItem.description);
+
+            const doneButton = document.createElement('button');
+            doneButton.innerHTML = 'Done';
+
+            doneButton.onclick = (e) => {
+                e.target.parentNode.remove();
+
+                // setTimeout(() => {//a function that takes time in ms for when to run it
+                //     alert('Awesome, you finished a task');//everytime we click done, an alert will show after 500 ms 
+                // }, 3000);
+
+                clearTimeout(currentTimeout);//after clicking the button the timeout will run, but if we click again quickly
+                                            //it will cancel the previous timeout and just run one, instead of two or three
+                currentTimeout = setTimeout(() => {
+                    alert('Awesome work');
+                }, 2000);
+            }                                   
+                                                
+            if (todoItem.important) {
+                listItem.classList.add('warning');
+            }
+
+            listItem.onmouseover = (e) => {
+                console.log(e.target.innerHTML);
+
+                const due = document.createElement('p');
+                due.textContent = todoItem.due;
+                listItem.appendChild(due);
+            };
+
+            listItem.onmouseout = (e) => {
+                const p = listItem.getElementsByTagName('p');
+                listItem.removeChild(p[0]);
+            };
+
+            listItem.appendChild(content);
+            listItem.appendChild(doneButton);
+            todosList.appendChild(listItem);
+        });
+    </script>
+
+    </script>
+</html>

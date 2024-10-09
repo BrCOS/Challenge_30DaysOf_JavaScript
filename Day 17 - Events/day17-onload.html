@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        #red-text {color: red;}
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <div id='ball' style='
+        left: 30px;
+        top: 30px;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: red;'>
+    </div>
+</body>
+    <script>
+        // keydown
+        //allows us to wait until everything is ready before running some code
+        //adding this event handler to the document to run some code after the page has loaded is bulletproof
+
+        //this could be anywhere in the code
+        window.addEventListener('load', (e) => {//this will only run after the page is loaded
+            console.log('Page Loaded');
+            ball.style.backgroundColor = 'blue';//and change the ball's color to blue after the page is loaded
+        });
+
+        const ball = document.getElementById('ball');
+        const movement = 5;
+
+        document.addEventListener('keydown', (e) => {//we add an event listener to detect when the arrow keys are pressed
+            if (e.key === 'ArrowRight') {               //to change the the ball to the left, right, up and down
+                let left = parseInt(ball.style.left) + movement;
+                ball.style.left = `${left}px`;
+            }
+
+            if (e.key === 'ArrowLeft') {
+                let left = parseInt(ball.style.left) - movement;
+                ball.style.left = `${left}px`;
+            }
+
+            if (e.key === 'ArrowUp') {
+                let top = parseInt(ball.style.top) - movement;
+                ball.style.top = `${top}px`;
+            }
+
+            if (e.key === 'ArrowDown') {
+                let top = parseInt(ball.style.top) + movement;
+                ball.style.top = `${top}px`;
+            }
+        });
+    </script>
+</html>
