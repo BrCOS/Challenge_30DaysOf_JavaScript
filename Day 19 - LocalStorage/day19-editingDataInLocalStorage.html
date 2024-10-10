@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+        #container {
+            width: 800px;
+            margin: auto;
+        }
+
+        h1 {text-align: center;}
+
+        ul {
+            font-size: 20px;
+            line-height: 35px;
+            padding: 0;
+        }
+
+        form {font-size: 18px;}
+
+        button {
+            padding: 5px;
+            min-width: 80px;
+        }
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        li {list-style-type: none;}
+
+        #red-text {color: red;}
+
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+
+        .warning {color: orangered;}
+
+        fieldset {
+            border: none;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <button id='add-number'>Add Number</button>
+        <button id='add-one'>Add 1</button>
+
+        <ul id='numbers'></ul>
+    </div>
+</body>
+    <script>
+        // editing data in localstorage
+        //technically there isn't a way of editing it, because it's saved in localstorage as strings
+        //but we can do is read the data, change it and then save it back
+
+        const button = document.getElementById('add-number');
+        const ul = document.getElementById('numbers');
+
+        const numbersString = localStorage.getItem('numbers');
+
+        let numbers = JSON.parse(numbersString) ?? [];
+
+        numbers.forEach((number) => {
+            const li = document.createElement('li');
+            li.innerText = number;
+            ul.appendChild(li);
+        });
+
+        button.onclick = () => {
+            const number = Math.floor(Math.random() * 100);
+                                              
+            localStorage.setItem('numbers', JSON.stringify(numbers));
+
+            const li = document.createElement('li');
+            li.innerText = number;
+            ul.appendChild(li);
+        };
+
+        //below, we are reading the data from the localstorage, increasing each number by one with a map
+        //and then saving the new array back to the localstorage
+        const addButton = document.getElementById('add-one');
+
+        addButton.onclick = () => {
+            const numbersString = localStorage.getItem('numbers');
+            const numbers = JSON.parse(numbersString) ?? [];
+
+            const increasedNumbers = numbers.map((number) => number + 1);
+
+            localStorage.setItem('numbers', JSON.stringify(increasedNumbers));
+
+            //delete numbers from the dom
+            //this deletes all the existing numbers, so we can add the new ones below
+            while (ul.hasChildNodes()) {
+                ul.removeChild(ul.children[0]);
+            }
+
+            //add increased number to the dom
+            increasedNumbers.forEach((number) => {
+                const li = document.createElement('li');
+                li.innerText = number;
+                ul.appendChild(li);
+            });
+        };
+    </script>
+</html>

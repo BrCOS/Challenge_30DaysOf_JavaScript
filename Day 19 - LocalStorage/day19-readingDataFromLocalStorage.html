@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+        #container {
+            width: 800px;
+            margin: auto;
+        }
+
+        h1 {text-align: center;}
+
+        ul {
+            font-size: 20px;
+            line-height: 35px;
+            padding: 0;
+        }
+
+        form {font-size: 18px;}
+
+        button {
+            padding: 5px;
+            min-width: 80px;
+        }
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        li {list-style-type: none;}
+
+        #red-text {color: red;}
+
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+
+        .warning {color: orangered;}
+
+        fieldset {
+            border: none;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <button id='add-number'>Add Number</button>
+        <ul id='numbers'></ul>
+    </div>
+</body>
+    <script>
+        // reading data from the localstorage
+
+        const button = document.getElementById('add-number');
+        const ul = document.getElementById('numbers');
+
+        //get the data from localstorage using the key numbers
+        const numbersString = localStorage.getItem('numbers');
+
+        //as we know it's a string and we need to convert it to an array using JSON.parse()
+        let numbers = JSON.parse(numbersString) ?? [];//this is called nullish coalescing
+        //?? [] says something like if what's on the left is null then return what's on the right of ??
+        //in this case an empty array
+
+        numbers.forEach((number) => {
+            const li = document.createElement('li');
+            li.innerText = number;
+            ul.appendChild(li);
+        });
+
+        button.onclick = () => {
+            const number = Math.floor(Math.random() * 100);
+                                              
+            localStorage.setItem('numbers', JSON.stringify(numbers));
+
+            const li = document.createElement('li');
+            li.innerText = number;
+            ul.appendChild(li);
+        };
+    </script>
+</html>

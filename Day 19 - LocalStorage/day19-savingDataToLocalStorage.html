@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+        #container {
+            width: 800px;
+            margin: auto;
+        }
+
+        h1 {text-align: center;}
+
+        ul {
+            font-size: 20px;
+            line-height: 35px;
+            padding: 0;
+        }
+
+        form {font-size: 18px;}
+
+        button {
+            padding: 5px;
+            min-width: 80px;
+        }
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        li {list-style-type: none;}
+
+        #red-text {color: red;}
+
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+
+        .warning {color: orangered;}
+
+        fieldset {
+            border: none;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <button id='add-number'>Add Number</button>
+        <ul id='numbers'></ul>
+    </div>
+</body>
+    <script>
+        // saving data to localstorage
+        //the data will not go away when we refresh the page
+        //with this, when we reload the page we can use the generated data
+
+        const button = document.getElementById('add-number');
+        const ul = document.getElementById('numbers');
+
+        let numbers = [];
+
+        button.onclick = () => {
+            const number = Math.floor(Math.random() * 100);//math.random gives us a random decimal number between 0 and 1
+            numbers.push(number);                          //we are multiplying it by 100 so 0.5 becomes 50
+                                                            //and we use math.floor() will round that number down to the nearest whole number
+
+            //localstorage let's us save the data as a string with a key
+            //we need to use JSON.stringify() because localstorage only can save strings                                                
+            localStorage.setItem('numbers', JSON.stringify(numbers));
+            //to see it we go to developer's console and find application and then find localstorage the array will be there
+            //it will be empty after we refresh the page, that's because we have to read the data from the localstorage and display it
+
+            const li = document.createElement('li');
+            li.innerText = number;
+            ul.appendChild(li);
+        };
+    </script>
+</html>
