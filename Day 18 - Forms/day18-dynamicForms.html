@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+        #container {
+            width: 800px;
+            margin: auto;
+        }
+
+        h1 {text-align: center;}
+
+        ul {
+            font-size: 20px;
+            line-height: 35px;
+            padding: 0;
+        }
+
+        form {font-size: 18px;}
+
+        button {
+            padding: 5px;
+            min-width: 80px;
+        }
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        li {list-style-type: none;}
+
+        #red-text {color: red;}
+
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+
+        .warning {color: orangered;}
+
+        fieldset {
+            border: none;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <h1>The Broom Shop Stock</h1>
+
+        <ul id='stock-list'></ul>
+
+        <form id='stock-form'>
+            <div id='new-brooms'>
+                <fieldset id='first-broom'>
+                    <label for='name'>Broom Name</label>
+                    <input type='text' name='name' value='comet' />
+
+                    <label for='price'>Price</label>
+                    <input type='number' name='price' required value='3' />
+
+                    <label for='quantity'>Quantity</label>
+                    <input type='number' name='quantity' required value='5' />
+                </fieldset>
+            </div>
+            
+            <button type='button' id='add-broom'>Add</button>
+            <button type='submit' id='form-submit' disabled>Save</button>
+        </form>
+    </div>
+</body>
+    <script>
+        // dynamic forms
+        //we are going to add more than one broom
+
+        const addBroomButton = document.getElementById('add-broom');
+
+        const handleAddBroom = () => {
+            const fieldset = document.getElementById('new-brooms');
+            const newBroom = document.getElementById('first-broom');
+
+            fieldset.appendChild(newBroom.cloneNode(true));//gets the fieldset by id and clones it and all of its data inside
+        };
+
+        addBroomButton.onclick = handleAddBroom;
+
+        const handleOnInput = (e) => {
+            const formData = new FormData(e.currentTarget);
+            const formProps = Object.fromEntries(formData);
+
+            let nameValid = false;
+
+            if (formProps.name.toLowerCase().includes('nimbus') || formProps.name.toLowerCase().includes('comet')) {
+                nameValid = true;
+            }
+
+            const priceValid = !isNaN(parseInt(formProps.price));
+            const quantityValid = !isNaN(parseInt(formProps.quantity));
+
+            if (nameValid && priceValid && quantityValid) {
+                document.getElementById('form-submit').disabled = false;
+            } else {
+                document.getElementById('form-submit').disabled = true;
+            }
+        };
+
+        const form = document.getElementById('stock-form');
+        form.oninput = handleOnInput;
+
+        const handleSubmit = (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const fromEntries = Array.from(formData.values());//get the data from the form and make an array from its values
+
+            let newBrooms = [];
+
+            for (let i = 0; i <fromEntries.length; i += 3) {
+                const newBroom = {
+                    name: fromEntries[i],
+                    price: fromEntries[i + 1],
+                    quantity: fromEntries[i + 2]
+                };
+
+                newBrooms.push(newBroom);
+
+                const newLi = createRow(newBroom);
+                ul.appendChild(newLi);
+            }
+
+            e.target.reset();
+        };
+    </script>
+</html>

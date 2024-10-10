@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Document</title>
+
+    <style>
+        body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+        #container {
+            width: 800px;
+            margin: auto;
+        }
+
+        h1 {text-align: center;}
+
+        ul {
+            font-size: 20px;
+            line-height: 35px;
+            padding: 0;
+        }
+
+        form {font-size: 18px;}
+
+        button {
+            padding: 5px;
+            min-width: 80px;
+        }
+
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        li {list-style-type: none;}
+
+        #red-text {color: red;}
+
+        #blue-text {color: blue;}
+
+        .title-large {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .title-small {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hidden {display: none;}
+
+        .warning {color: orangered;}
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <h1>The Broom Shop Stock</h1>
+
+        <ul id='stock-list'></ul>
+
+        <form id='stock-form'>
+            <label for='name'>Broom Name</label>
+            <input type='text' name='name' required/>
+
+            <label for='price'>Price</label>
+            <input type='number' name='price' required/>
+
+            <label for='quantity'>Quantity</label>
+            <input type='number' name='quantity' required/>
+            
+            <button type='submit' id='form-submit' disabled>Add</button>
+        </form>
+    </div>
+</body>
+    <script>
+        // form valdiation
+        //when submitting the form empty some textNode are being created, to avoid this
+        //we need to make some values required in the HTML code
+
+        const handleOnInput = (e) => {
+            const formData = new FormData(e.currentTarget);//get the form fields as an object
+            const formProps = Object.fromEntries(formData);
+
+            let nameValid = false;//check to see if name includes the substring nimbus or comet
+
+            if (formProps.name.toLowerCase().includes('nimbus') || formProps.name.toLowerCase().includes('comet')) {
+                nameValid = true;
+            }
+
+            //check to see if the number in the fields are valid, so we convert the string to check that
+            //so if is not NaN (not not a number)
+            const priceValid = !isNaN(parseInt(formProps.price));
+            const quantityValid = !isNaN(parseInt(formProps.quantity));
+
+            if (nameValid && priceValid && quantityValid) {
+                document.getElementById('form-submit').disabled = false;
+            } else {
+                document.getElementById('form-submit').disabled = true;
+            }
+        };
+
+        // oninput
+        //this will fire every time there is an input in the form, every key press will fire this event handler
+        const form = document.getElementById('stock-form');
+        form.oninput = handleOnInput;
+    </script>
+</html>
