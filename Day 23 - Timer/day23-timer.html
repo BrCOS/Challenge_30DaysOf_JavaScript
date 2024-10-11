@@ -1,0 +1,175 @@
+<html>
+<head>
+<style>
+      body {font-family: 'Open Sans', 'Helvetica Neue', sans-serif;}
+
+      #container {
+        width: 350px;
+        margin: 50px auto;
+      }
+      
+      .center {text-align: center;}
+
+      #timer {
+        font-size: 30px;
+        color: black;
+        font-weight: bold;
+      }
+
+      .flex-row {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        column-gap: 8px;
+      }
+
+      .flex-row button {
+        border-radius: 8px;
+        padding: 12px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        flex: 1;
+      }
+
+      #time-input {
+        font-size: 30px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        width: 100%;
+      }
+
+      #start {background-color: #4cbb17;}
+
+
+      #start:disabled {background-color: #4bbb1771;}
+
+      #stop {background-color: #ff5733;}
+
+      #stop:disabled {background-color: #ff583377;}
+
+      #reset {background-color: orange;}
+
+      #reset:disabled {background-color: rgba(255, 166, 0, 0.5);}
+</style>
+</head>
+
+<body>
+<div id='container' class='center'>
+    <div id='timer'></div>
+    <div>
+        <input id='time-input' type='number' placeholder='Enter time in seconds' />
+    </div>
+
+    <div class='flex-row'>
+        <button onclick='startTimer()' id='start'>Start</button>
+        <button onclick='stopTimer()' id='stop' disabled>Stop</button>
+        <button onclick='resetTimer()' id='reset' disabled>Reset</button>
+    </div>
+</div>
+
+<script>
+const startButton = document.getElementById('start');
+const stopButton = document.getElementById('stop');
+const resetButton = document.getElementById('reset');
+
+//we need access to the input element, div to display the current time, a var to store the current time
+//and a var to store the active running interval
+
+const timerElement = document.getElementById('timer');
+const timeInputElement = document.getElementById('time-input');
+
+let timerInterval;
+let timerActive = false;//will change this to true when we start and to false when we click reset
+let time = 0;
+
+// function startTimer
+//get the time from the input
+//check if is greater than 0
+//set the display time to the time the user entered
+//creates an interval that will call a function (updatedTimer) every 1.000 ms
+function startTimer() {
+  console.log('Starting Timer');
+
+  if (timerActive) {
+    timerActive = setInterval(updateTimer, 1000);
+    setButtons('running');
+    return
+  }
+
+  time = timeInputElement.value;
+
+  if (time <= 0) {
+    alert('Time must be more than 0!');
+    return;
+  }
+
+  timerElement.innerHTML = time;
+  timerInterval = setInterval(updateTimer, 1000);
+
+  timerActive = true;
+}
+
+// update time
+//this function is called once a second and it decreased the time left by 1
+//updates the UI
+//if time is 0, stops the interval running with clearInterval
+function updateTimer() {
+  time--;
+  timerElement.innerHTML = time;
+
+  if (time === 0) {
+    clearInterval(timerInterval);
+  }
+}
+
+// stop timer
+function stopTimer() {
+  console.log('Stopping Timer');
+
+  clearInterval(timerInterval);
+
+  setButtons('stopped');
+}
+
+// reset timer
+function resetTimer() {
+  console.log('Resetting Timer');
+
+  time = 0;
+
+  timeInputElement.value = '';
+  timerElement.innerHTML = time;
+
+  setButtons('clear');
+
+  timerActive = false;
+}
+
+//we need to create a function to enable and disable our button
+//depending on what state the timer is in
+//we need to add the setButtons(state) with the correct state string to keep the buttons in sync
+function setButtons(state) {
+  if (state === 'clear') {
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    resetButton.disabled = true;
+  }
+
+  if (state === 'running') {
+    startButton.disabled = true;
+    stopButton.disabled = false;
+    resetButton.disabled = true;
+  }
+
+  if (state === 'stopped') {
+    startButton.disabled = false;
+    stopButton.disabled = true;
+    resetButton.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
