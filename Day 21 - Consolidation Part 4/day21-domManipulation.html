@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+
+    <style>
+    #red-text {color: red;}
+    </style>
+</head>
+    
+<body>
+    <div id='welcome-message'>Welcome</div>
+
+    <p id='red-text'>Hello World</p>
+
+    <div class='title-large' id='container'>
+        <p class='title-small'>Hello Simon</p>
+        <p class='title-small'>Hello Raj</p>
+        <p class='title-small'>Hello Zuma</p>
+        <p class='title-small'>Hello Sara</p>
+    </div>
+
+    <ul id='todos'>
+        <li>Clean kitchen</li>
+        <li>Go for a run</li>
+        <li>Cook lunch</li>
+        <li>Walk dog</li>
+    </ul>
+</body>
+
+<script>
+    //the beauty of js is to change what's on our screen (what's on our DOM - Document Object Model)
+    console.log("Hello World from JS");
+
+    // getting dom elements
+    const text = document.getElementById('red-text');
+    console.log(text);
+
+    //we can get all the elements on a page that have a certain class
+    const titles = document.getElementsByClassName('title-small');
+    console.log(titles);
+
+    //or just one with the same class name
+    console.log(titles[0]);
+
+
+    // deleting dom elements
+    const simon = titles[0];
+    console.log(simon);
+    simon.remove();
+
+    //we can remove the children of an element and remove them with a while loop
+    const todos = getElementById('todos');
+
+    while (todos.hasChildNodes()) {
+        todos.removeChild(todos.children[0]);
+    }
+
+
+    //creating dom elements
+    //we can set an inner text by creating a text node and setting it as its child
+    const listItem = document.createElement('li');
+    const content = document.createTextNode('Clean Kitchen');
+    listItem.appendChild(content);
+
+    const todoList = ['Clean Kitchen', 'Walk Dog', 'Watch TV', 'Plan Next Project'];
+
+    todoList.forEach((todoItem) => {
+        const listItem = document.createElement('li');
+        const listContent = document.createTextNode(todoItem);
+        listItem.appendChild(listContent);
+        todos.appendChild(listItem);
+    });
+
+
+    // changing dom elements
+    //we can change the contents of an element
+    const isLoggedIn = true;
+    const name = 'Bruno';
+
+    if (isLoggedIn) {
+        const welcomeDiv = document.getElementById('welcome-message');
+        welcomeDiv.innerText = `Welcome back ${name}`;
+    }
+
+
+    //styling dom elements
+    //we can add or remove css classes
+    //or access CSS properties directly
+    const heading = document.getElementById('main-heading');
+
+    heading.style.fontSize = '70px';
+    heading.style.padding = '20px';
+</script>
+</html>
