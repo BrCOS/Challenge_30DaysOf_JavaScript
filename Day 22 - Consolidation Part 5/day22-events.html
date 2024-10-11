@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+
+    <style>
+    #red-text {color: red;}
+    </style>
+</head>
+    
+<body>
+    <p id="red-text">Hello World</p>
+    <button id='hi-button' onclick="console.log('Clicked!')">Say Hi</button>
+
+    <div id='container' style='background-color: red;'>
+        <p id='title' style='background-color: yellow; margin: 30px;'>Amazing Website</p>
+        <p></p>
+    </div>
+</body>
+
+<script>
+    // events
+
+    //onclick
+    const button = document.getElementById('hi-button');
+
+    //this passes the onclick handler an anonymous function function to invoke when the button is clicked
+    button.onclick = () => {
+        console.log('hello');
+    }
+    //all events passes an event parameter we can access like:
+    // button.onclick = (e) => {
+    //     console.log(e);
+    // }
+
+
+    // onmouseover and onmouseout
+    //like the css class hover
+    const constainer = document.getElementById('container');
+
+    constainer.onmouseover = (e) => {
+        console.log(e.target);
+        console.log(e.currentTarget);
+    };
+
+
+    // setTimeout
+    //the time is in ms
+    setTimeout(() => {
+        alert('Awesome, you finished a task');
+    }, 500);
+
+
+    //keydown
+    //this detects the key we press
+    //it has a .key property so we can check which key was pressed
+
+
+    // onload
+    //let us execute some js once everything on the page has finished loading
+    //remember to attach it to the window not the document
+    window.addEventListener('laod', (e) => {
+        console.log('Page loades');
+    });
+</script>
+</html>
